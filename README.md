@@ -10,15 +10,15 @@ A separate README will describe the details of the HTACA implementation and code
 
 The Wigner–Poisson system is a deterministic phase-space model for quantum kinetic electron dynamics.  It evolves a Wigner distribution
 
-\[
+```math
 f = f(x,v,t),
-\]
+```
 
-where \(x\in\mathbb{R}^d\) is position, \(v\in\mathbb{R}^d\) is velocity, and \(t\) is time.  The Wigner distribution plays a role analogous to the distribution function in classical kinetic theory, but it is not a classical probability density: it may take negative values.  Those negative regions encode genuinely quantum behavior such as interference and non-classical phase-space structure.
+where $x\in\mathbb{R}^d$ is position, $v\in\mathbb{R}^d$ is velocity, and $t$ is time.  The Wigner distribution plays a role analogous to the distribution function in classical kinetic theory, but it is not a classical probability density: it may take negative values.  Those negative regions encode genuinely quantum behavior such as interference and non-classical phase-space structure.
 
-The distribution is coupled to an electrostatic potential \(\Phi(x,t)\), which is determined self-consistently through Poisson's equation.  In nondimensional form, a common periodic Wigner–Poisson model is
+The distribution is coupled to an electrostatic potential $\Phi(x,t)$, which is determined self-consistently through Poisson's equation.  In nondimensional form, a common periodic Wigner–Poisson model is
 
-\[
+```math
 \partial_t f + v\cdot \nabla_x f
 =
 -\frac{i}{(2\pi)^d H^{d+1}}
@@ -26,25 +26,25 @@ The distribution is coupled to an electrostatic potential \(\Phi(x,t)\), which i
 \exp\!\left(\frac{i(v'-v)\cdot y}{H}\right)
 \left[\Phi\!\left(x+\frac{y}{2}\right)-\Phi\!\left(x-\frac{y}{2}\right)\right]
 f(x,v',t)\,dy\,dv',
-\]
+```
 
-\[
+```math
 -\Delta_x \Phi = \int_{\mathbb{R}^d} f(x,v,t)\,dv - 1.
-\]
+```
 
-Here \(H\) is the nondimensional quantum parameter.  With the usual plasma scaling by the Debye length \(\lambda_D\) and plasma frequency \(\omega_{pe}\),
+Here $H$ is the nondimensional quantum parameter.  With the usual plasma scaling by the Debye length $\lambda_D$ and plasma frequency $\omega_{pe}$,
 
-\[
+```math
 H = \frac{\hbar}{m_e \lambda_D^2 \omega_{pe}}.
-\]
+```
 
-The parameter \(H\) measures the strength of quantum diffraction and uncertainty effects.  Formally, as \(H\to 0\), the Wigner–Poisson model approaches the classical Vlasov–Poisson model.  For finite \(H\), the model retains the phase-space structure of kinetic theory while adding quantum wave effects.
+The parameter $H$ measures the strength of quantum diffraction and uncertainty effects.  Formally, as $H\to 0$, the Wigner–Poisson model approaches the classical Vlasov–Poisson model.  For finite $H$, the model retains the phase-space structure of kinetic theory while adding quantum wave effects.
 
 ---
 
 ## 2. Why use Wigner–Poisson instead of a classical kinetic model?
 
-Classical Vlasov–Poisson dynamics describes collisionless electrostatic plasma behavior using a local force term \(E\cdot\nabla_v f\).  Wigner–Poisson replaces that local force term by a nonlocal pseudodifferential Wigner operator.  This nonlocal operator allows the model to describe effects that are absent from classical kinetic theory, including
+Classical Vlasov–Poisson dynamics describes collisionless electrostatic plasma behavior using a local force term $E\cdot\nabla_v f$.  Wigner–Poisson replaces that local force term by a nonlocal pseudodifferential Wigner operator.  This nonlocal operator allows the model to describe effects that are absent from classical kinetic theory, including
 
 - quantum diffraction,
 - wave-packet spreading,
@@ -63,31 +63,31 @@ Examples include warm dense matter, dense plasmas, resonant tunneling and semico
 
 On periodic domains, the Wigner–Poisson system has the same basic global invariants one expects from a collisionless electrostatic kinetic model.  With
 
-\[
+```math
 \rho(x,t)=\int f(x,v,t)\,dv,
 \qquad
 J(x,t)=\int v f(x,v,t)\,dv,
-\]
+```
 
 the global invariants are
 
-\[
+```math
 M[f] = \int \rho(x,t)\,dx,
-\]
+```
 
-\[
+```math
 P[f] = \int J(x,t)\,dx,
-\]
+```
 
 and the self-consistent total energy
 
-\[
+```math
 \mathcal{E}[f]
 =
 \frac12 \int\!\int |v|^2 f(x,v,t)\,dv\,dx
 +
 \frac12 \int |\nabla_x \Phi(x,t)|^2\,dx.
-\]
+```
 
 For numerical simulation, preserving these quantities is important.  Small conservation defects can accumulate over long times and contaminate wave dynamics, phase-space structures, and electric-energy diagnostics.  This is especially important for low-rank and adaptive methods, where compression and recompression can destroy invariants even when the corresponding full-grid method is conservative.
 
@@ -95,9 +95,9 @@ For numerical simulation, preserving these quantities is important.  Small conse
 
 ## 4. Fourier form of the Wigner operator
 
-A key reason spectral methods are natural for WP is that the Wigner potential operator becomes simple in velocity-Fourier variables.  If \(\widehat f(x,k_v,t)\) denotes the Fourier transform of \(f\) in velocity, then the Wigner update can be written as
+A key reason spectral methods are natural for WP is that the Wigner potential operator becomes simple in velocity-Fourier variables.  If $\widehat f(x,k_v,t)$ denotes the Fourier transform of $f$ in velocity, then the Wigner update can be written as
 
-\[
+```math
 \partial_t \widehat f(x,k_v,t)
 =
 \frac{i}{H}
@@ -107,9 +107,9 @@ A key reason spectral methods are natural for WP is that the Wigner potential op
 \Phi\!\left(x-\frac{H k_v}{2}\right)
 \right]
 \widehat f(x,k_v,t).
-\]
+```
 
-With \(\Phi\) frozen over a time step, this equation has an analytic exponential update.  This observation is central in many Wigner solvers, including the methods used in our WP papers.
+With $\Phi$ frozen over a time step, this equation has an analytic exponential update.  This observation is central in many Wigner solvers, including the methods used in our WP papers.
 
 However, this Fourier formulation introduces an additional structure-preservation requirement: because the physical Wigner distribution should be real-valued, the velocity-Fourier representation must preserve Hermitian symmetry.  Low-rank compression and adaptive sampling do not automatically preserve that symmetry, so the numerical method must enforce it deliberately.
 
@@ -131,7 +131,7 @@ The high-dimensional simulations in this repository are motivated in part by the
 
 ### KEEN waves and driven nonlinear electrostatic dynamics
 
-Kinetic Electrostatic Electron Nonlinear (KEEN) waves are nonlinear, driven, subplasma-frequency electrostatic structures that depend on trapping and multiharmonic phase-space organization.  Our KEEN-wave WP study uses a 1D1V Wigner–Poisson solver to examine how quantum diffraction changes this classical mechanism.  As \(H\) increases, quantum diffraction weakens trapping, damps higher harmonics, diffuses trapped-electron vortices, and drives the system toward a lower long-time electrostatic-energy state.
+Kinetic Electrostatic Electron Nonlinear (KEEN) waves are nonlinear, driven, subplasma-frequency electrostatic structures that depend on trapping and multiharmonic phase-space organization.  Our KEEN-wave WP study uses a 1D1V Wigner–Poisson solver to examine how quantum diffraction changes this classical mechanism.  As $H$ increases, quantum diffraction weakens trapping, damps higher harmonics, diffuses trapped-electron vortices, and drives the system toward a lower long-time electrostatic-energy state.
 
 This makes KEEN waves a useful reduced test problem for understanding how quantum kinetic effects alter driven, nonlinear, nonequilibrium plasma dynamics.
 
@@ -147,13 +147,13 @@ Wigner–Poisson is appealing because it keeps a kinetic phase-space description
 
 ### 6.1 Full phase space is large
 
-A \(d\)-dimensional physical problem lives in a \(2d\)-dimensional phase space.  Thus,
+A $d$-dimensional physical problem lives in a $2d$-dimensional phase space.  Thus,
 
 - 1D1V is a two-dimensional array,
 - 2D2V is a four-dimensional tensor,
 - 3D3V is a six-dimensional tensor.
 
-A full tensor with \(N\) grid points per coordinate has \(N^{2d}\) entries.  This becomes prohibitive in 3D3V.
+A full tensor with $N$ grid points per coordinate has $N^{2d}$ entries.  This becomes prohibitive in 3D3V.
 
 ### 6.2 The Wigner potential is nonlocal and oscillatory
 
@@ -161,7 +161,7 @@ The Wigner operator couples the potential at shifted spatial points with the dis
 
 ### 6.3 The solution is oscillatory and sign-indefinite
 
-The Wigner distribution can be negative.  Interference fringes and phase-space oscillations are not numerical artifacts; they are part of the model.  Any numerical method must distinguish physical oscillations from unresolved noise.  Smaller \(H\) typically requires finer resolution and/or higher rank because the dynamics become more classical and filamentary.
+The Wigner distribution can be negative.  Interference fringes and phase-space oscillations are not numerical artifacts; they are part of the model.  Any numerical method must distinguish physical oscillations from unresolved noise.  Smaller $H$ typically requires finer resolution and/or higher rank because the dynamics become more classical and filamentary.
 
 ### 6.4 Fourier updates must preserve Hermitian symmetry
 
@@ -173,13 +173,13 @@ Low-rank methods reduce memory and runtime by approximating the solution in a co
 
 ### 6.6 Self-consistent field coupling matters
 
-The potential \(\Phi\) is computed from the density through Poisson's equation.  Errors in density affect the field, and errors in the field feed back into the Wigner update.  The kinetic energy and electrostatic field energy must be treated together when enforcing total energy.
+The potential $\Phi$ is computed from the density through Poisson's equation.  Errors in density affect the field, and errors in the field feed back into the Wigner update.  The kinetic energy and electrostatic field energy must be treated together when enforcing total energy.
 
 ---
 
 ## 7. Why adaptive rank and HTACA are used here
 
-The central observation behind this repository is that many WP solutions have exploitable low-rank structure, especially for finite quantum parameter \(H\).  Rather than assembling the entire phase-space tensor, the high-dimensional solver uses hierarchical Tucker adaptive cross approximation (HTACA) to sample selected tensor entries and build a compressed hierarchical Tucker representation.
+The central observation behind this repository is that many WP solutions have exploitable low-rank structure, especially for finite quantum parameter $H$.  Rather than assembling the entire phase-space tensor, the high-dimensional solver uses hierarchical Tucker adaptive cross approximation (HTACA) to sample selected tensor entries and build a compressed hierarchical Tucker representation.
 
 At a high level, HTACA helps because it can
 
@@ -258,9 +258,9 @@ The following references are useful entry points for understanding the model, ap
 
 When reading or reproducing WP simulations, the most important diagnostics are usually
 
-- phase-space slices of \(f(x,v,t)\), including sign-changing structures,
-- density \(\rho(x,t)=\int f\,dv\),
-- electric-field energy \(\frac12\int |E|^2\,dx\),
+- phase-space slices of $f(x,v,t)$, including sign-changing structures,
+- density $\rho(x,t)=\int f\,dv$,
+- electric-field energy $\frac12\int |E|^2\,dx$,
 - Fourier mode amplitudes of the electric field,
 - conservation errors in mass, momentum, and total energy,
 - adaptive ranks or hierarchical Tucker ranks,
