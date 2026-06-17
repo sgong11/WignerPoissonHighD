@@ -206,8 +206,7 @@ The repository will grow to include results from several related WP papers.
 |---|---|---|
 | Andrew J. Christlieb, Sining Gong, Jing-Mei Qiu, and Nanyi Zheng, **A Sampling-Based Adaptive Rank Approach to the Wigner–Poisson System** | Accepted in *SIAM Journal on Scientific Computing*; preprint: [arXiv:2506.21314](https://arxiv.org/abs/2506.21314) | First adaptive-rank WP paper; 1D1V ACA/SLAR-Fourier formulation and structure-preserving Fourier update. |
 | F. Alejandro Padilla-Gomez, Sining Gong, Michael S. Murillo, F. R. Graziani, and Andrew J. Christlieb, **Quantum Kinetic Modeling of KEEN Waves in a Warm-Dense Regime** | Published in *Physics of Plasmas*, 33, 043902 (2026), DOI: [10.1063/5.0308425](https://doi.org/10.1063/5.0308425) | Application paper showing how WP quantum diffraction modifies KEEN-wave trapping, harmonics, and long-time decay. |
-| Andrew J. Christlieb, Sining Gong, Jing-Mei Qiu, and Nanyi Zheng, **A Structure-Preserving Adaptive-Rank Approach to the High-Dimensional Wigner–Poisson System** | Preprint on arXiv: 
-https://doi.org/10.48550/arXiv.2606.15067 | Main high-dimensional HTACA WP method; 2D2V and 3D3V simulations with symmetry and conservation correction. |
+| Andrew J. Christlieb, Sining Gong, Jing-Mei Qiu, and Nanyi Zheng, **A Structure-Preserving Adaptive-Rank Approach to the High-Dimensional Wigner–Poisson System** | Preprint on arXiv: https://doi.org/10.48550/arXiv.2606.15067 | Main high-dimensional HTACA WP method; 2D2V and 3D3V simulations with symmetry and conservation correction. |
 | Andrew J. Christlieb, Sining Gong, F. Alejandro Padilla-Gomez, and Jing-Mei Qiu, **A Conservative Adaptive Low-Rank Method for the Wigner–Poisson System** | Preprint forthcoming on arXiv | Conservative 1D1V low-rank WP method using a macroscopic correction, Fermi–Dirac-type reconstruction, and global moment correction. |
 
 ---
